@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="flex-grow flex flex-col bg-gradient-to-br from-red-200 to-blue-400">
       <Header />
-      <main className="flex-grow container mx-auto p-4 flex justify-center pt-8 lg:pt-16">
+      <main className="flex-grow container mx-auto p-4 flex justify-center">
         <Game />
       </main>
       <footer className="container mx-auto flex flex-col items-center text-sm text-gray-700 py-4">
