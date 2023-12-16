@@ -1,8 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Home from "../components/pages/home";
+import "../base.css";
 ---
 
 <Layout title="Tamagotchi">
-	<Home />
+	<Home client:load />
 </Layout>
+
+<style is:global>
+	html,
+	body {
+		height: 100%;
+	}
+
+	body {
+		display: flex;
+		flex-direction: column;
+	}
+</style>
