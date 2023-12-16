@@ -1,31 +1,27 @@
 import { create } from "zustand";
-
-enum TamagotchiState {
-  none,
-  alive,
-  dead,
-}
+import type { Pet } from "../services/tamagotchi-service";
 
 interface TamagotchiStore {
-  state: TamagotchiState
-  food: number
-  happiness: number
+  pet?: Pet
+  error?: string
   computed: {
     created: boolean
     alive: boolean
   }
+  reset: () => void
 }
 
 export const useTamagotchiStore = create<TamagotchiStore>((set, get) => ({
-  state: TamagotchiState.none,
-  food: 100,
-  happiness: 100,
+  pet: undefined,
+  error: undefined,
   computed: {
     get created() {
-      return get().state !== TamagotchiState.none
+      return !!get().pet
     },
     get alive() {
-      return get().state === TamagotchiState.alive
-    }
-  }
+      const pet = get().pet
+      return !!pet && pet.food > 0 && pet.happiness > 0
+    },
+  },
+  reset: () => set({ pet: undefined, error: undefined })
 }))

@@ -2,6 +2,7 @@ import type { Session } from '@wharfkit/session'
 import { create } from 'zustand'
 
 interface SessionStore {
+  ready: boolean
   session?: Session
   computed: {
     loggedIn: boolean,
@@ -9,6 +10,7 @@ interface SessionStore {
 }
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
+  ready: false,
   session: undefined,
   computed: {
     get loggedIn() {

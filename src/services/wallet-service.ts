@@ -1,9 +1,9 @@
 import { SessionKit, Chains } from '@wharfkit/session'
 import { WalletPluginPrivateKey } from '@wharfkit/wallet-plugin-privatekey'
+import { TransactPluginResourceProvider } from '@wharfkit/transact-plugin-resource-provider'
 import WebRenderer from '@wharfkit/web-renderer'
 import { useSessionStore } from '../store/session'
-
-const TEST_PRIVATE_KEY = '5JaRyWL4mKxB3t1zeLLYWuUkfEiXWr5NdBtMcXkDv5wXC9JN4Bo'
+import { TEST_PRIVATE_KEY } from '../constants'
 
 class WalletService {
   private _sessionKit?: SessionKit
@@ -16,12 +16,16 @@ class WalletService {
       walletPlugins: [
         new WalletPluginPrivateKey(TEST_PRIVATE_KEY),
       ]
+    }, {
+      transactPlugins: [
+        new TransactPluginResourceProvider()
+      ]
     })
   }
 
   async restoreSession() {
     const session = await this.sessionKit.restore()
-    useSessionStore.setState({ session })
+    useSessionStore.setState({ session, ready: true })
   }
 
   async login() {
